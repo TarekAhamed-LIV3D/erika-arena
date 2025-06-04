@@ -1,10 +1,11 @@
-//src/components/promptinput.js
+//src/components/PromptInput.js
 import React from 'react';
 import { 
   TextField, 
   Button, 
   Grid, 
   Box, 
+  Typography,
   CircularProgress,
   FormControl,
   InputAdornment,
@@ -13,7 +14,7 @@ import {
 import SendIcon from '@mui/icons-material/Send';
 import ClearIcon from '@mui/icons-material/Clear';
 
-const promptinput = ({ prompt, setPrompt, handleSubmit, isLoading }) => {
+const PromptInput = ({ prompt, setPrompt, handleSubmit, isLoading }) => {
   return (
     <form onSubmit={handleSubmit}>
       <Grid container spacing={2} alignItems="flex-end">
@@ -80,4 +81,4 @@ const promptinput = ({ prompt, setPrompt, handleSubmit, isLoading }) => {
   );
 };
 
-export default promptinput;
+export default PromptInput;

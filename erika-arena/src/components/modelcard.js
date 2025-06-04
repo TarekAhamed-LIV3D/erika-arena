@@ -1,4 +1,4 @@
-//src/components/modelcard.js
+//src/components/ModelCard.js
 import React from 'react';
 import { 
   Card, 
@@ -8,6 +8,7 @@ import {
   Avatar, 
   Typography, 
   LinearProgress,
+  Box,
   Chip,
   useTheme,
   IconButton,
@@ -17,7 +18,7 @@ import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import TokenIcon from '@mui/icons-material/Token';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 
-const modelcard = ({ model, response, isLoading }) => {
+const ModelCard = ({ model, response, isLoading }) => {
   const theme = useTheme();
   const [copied, setCopied] = React.useState(false);
   
@@ -142,4 +143,4 @@ const modelcard = ({ model, response, isLoading }) => {
   );
 };
 
-export default modelcard;
+export default ModelCard;

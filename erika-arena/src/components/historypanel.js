@@ -1,4 +1,4 @@
-// src/components/historypanel.js
+// src/components/HistoryPanel.js
 import React from 'react';
 import {
   Drawer,
@@ -17,7 +17,7 @@ import {
 import CloseIcon from '@mui/icons-material/Close';
 import HistoryIcon from '@mui/icons-material/History';
 
-const historypanel = ({ open, onClose, history, setPrompt }) => {
+const HistoryPanel = ({ open, onClose, history, setPrompt }) => {
   const theme = useTheme();
   
   return (
@@ -93,4 +93,4 @@ const historypanel = ({ open, onClose, history, setPrompt }) => {
   );
 };
 
-export default historypanel;
+export default HistoryPanel;

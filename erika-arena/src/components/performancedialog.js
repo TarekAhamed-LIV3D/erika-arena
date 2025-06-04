@@ -1,4 +1,4 @@
-//src/components/performancedialog.js
+//src/components/PerformanceDialog.js
 import React from 'react';
 import {
   Dialog,
@@ -17,7 +17,7 @@ import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import TokenIcon from '@mui/icons-material/Token';
 import BarChartIcon from '@mui/icons-material/BarChart';
 
-const performancedialog = ({ open, onClose, responses, models }) => {
+const PerformanceDialog = ({ open, onClose, responses, models }) => {
   const theme = useTheme();
   
   // Calculate metrics
@@ -132,4 +132,4 @@ const performancedialog = ({ open, onClose, responses, models }) => {
   );
 };
 
-export default performancedialog;
+export default PerformanceDialog;

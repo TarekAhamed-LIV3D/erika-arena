@@ -1,8 +1,8 @@
-//src/components/header.js
+//src/components/Header.js
 import React from 'react';
 import { AppBar, Toolbar, Typography, Box } from '@mui/material';
 
-const header = ({ darkMode, toggleDarkMode }) => {
+const Header = ({ darkMode, toggleDarkMode }) => {
   return (
     <AppBar position="static" color="primary" enableColorOnDark>
       <Toolbar>
@@ -29,4 +29,4 @@ const header = ({ darkMode, toggleDarkMode }) => {
   );
 };
 
-export default header;
+export default Header;

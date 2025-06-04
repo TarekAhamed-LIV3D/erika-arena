@@ -18,7 +18,7 @@ import {
 } from '@mui/material';
 import SettingsIcon from '@mui/icons-material/Settings';
 
-const settingsdialog = ({ open, onClose, models, selectedModels, setSelectedModels }) => {
+const SettingsDialog = ({ open, onClose, models, selectedModels, setSelectedModels }) => {
   const handleToggleModel = (modelId) => {
     setSelectedModels(prev => 
       prev.includes(modelId)
@@ -85,4 +85,4 @@ const settingsdialog = ({ open, onClose, models, selectedModels, setSelectedMode
   );
 };
 
-export default settingsdialog;
+export default SettingsDialog;
