@@ -25,10 +25,10 @@ import {
 
 import Header from './components/header';
 import PromptInput from './components/promptinput';
-import ModelCard from './components/ModelCard';
-import HistoryPanel from './components/HistoryPanel';
-import PerformanceDialog from './components/PerformanceDialog';
-import SettingsDialog from './components/SettingsDialog';
+import ModelCard from './components/modelcard';
+import HistoryPanel from './components/historypanel';
+import PerformanceDialog from './components/performancedialog';
+import SettingsDialog from './components/settingsdialog';
 
 const App = () => {
   const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
