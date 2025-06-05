@@ -42,7 +42,7 @@ const App = () => {
   const [performanceOpen, setPerformanceOpen] = useState(false);
   const [settingsOpen, setSettingsOpen] = useState(false);
   const [selectedModels, setSelectedModels] = useState([
-    'gpt-4', 'claude-3', 'llama-3', 'gemini', 'mixtral'
+    'gpt-4', 'claude-3', 'llama-3', 'gemini', 'mixtral', 'deepseek', 'perplexity'
   ]);
 
   const theme = createTheme({
@@ -79,6 +79,8 @@ const App = () => {
     { id: 'llama-3', name: 'Llama 3', provider: 'Meta', color: '#ff9800' },
     { id: 'gemini', name: 'Gemini Pro', provider: 'Google', color: '#4caf50' },
     { id: 'mixtral', name: 'Mixtral', provider: 'Mistral', color: '#f44336' },
+    { id: 'deepseek', name: 'DeepSeek', provider: 'DeepSeek', color: '#00FFFF' },
+    { id: 'perplexity', name: 'Perplexity', provider: 'Perplexity Ai', color: '#FFD700' },
   ];
 
   const handleSubmit = (e) => {
