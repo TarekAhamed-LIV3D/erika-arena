@@ -17,12 +17,12 @@ const Header = ({ darkMode, toggleDarkMode }) => {
           justifyContent: 'center'
         }}>
           <Typography variant="h6" color="primary" fontWeight="bold">
-            AI
+            🧠
           </Typography>
         </Box>
         
         <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-          Model Comparison Dashboard
+          Erika Arena
         </Typography>
       </Toolbar>
     </AppBar>

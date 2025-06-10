@@ -149,7 +149,7 @@ const App = () => {
             <Grid container spacing={2} alignItems="center" sx={{ mb: 2 }}>
               <Grid item xs={12} md={8}>
                 <Typography variant="h4" component="h1" gutterBottom>
-                  AI Model Comparison Dashboard
+                  🧠 Erika Arena - HomeGround For All AI
                 </Typography>
                 <Typography variant="subtitle1" color="textSecondary">
                   Compare responses from multiple AI models in real-time
