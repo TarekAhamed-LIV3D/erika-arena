@@ -43,6 +43,8 @@ class DataIngestorFactory:
 if __name__ == "__main__":
     #file_path = "erika-arena/hpp-ml/data/archive.zip"
     
+    #file_extension = os.path.splitext(file_path)[1]
+    
     #data_ingestor = DataIngestorFactory.get_data_ingestor(file_extension)
     
     #df = data_ingestor.ingest(file_path)
