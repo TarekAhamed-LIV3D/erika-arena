@@ -210,3 +210,38 @@ if __name__ == "__main__":
 
 from  abc import ABC, abstractmethod
 import matplotlib.pyplot as plt
+import pandas as pd
+import seaborn as sns 
+
+#Abstract class
+class MultiVariateAnalyzer(ABC):
+    @abstractmethod
+    def analyze(self, df: pd.DataFrame):
+        self.generate_correlation_heatmap(df)
+        self.generate_pairplot(df)
+        
+    def generate_correlation_heatmap(self, df: pd.DataFrame):
+        pass
+    
+    def generate_pairplot(self, df: pd.DataFrame):
+        pass
+    
+#class for multivariaty analysis with correlation heatmap and pair polt
+class MultiVariateAnalyzerRunner(MultiVariateAnalyzer):
+    def generate_correlation_heatmap(self, df: pd.DataFrame):
+        plt.figure(figsize=(12,10))
+        sns.heatmap(df.corr(), annot=True, cmap='coolwarm', fmt=".2f", linewidths=0.5)
+        plt.title('Correlation Heatmap')
+        plt.show()
+        
+    def generate_pairplot(self, df: pd.DataFrame):
+        sns.pairplot(df)
+        plt.subtitle("Pair plot selected feature", y=1.02)
+        plt.show()
+        
+if __name__ == "__main__":
+    #df = pd.read_csv('File')
+    #analyzer = MultiVariateAnalyzerRunner()
+    #selected_features = df[['SalesPrice', 'Gr liv area', 'overall qual', 'total bsmt sf', 'Year Built']]
+    #analyzer.analyze(selected_features)
+    pass
