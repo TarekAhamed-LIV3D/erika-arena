@@ -1,64 +1,71 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, KeyboardAvoidingView, Platform, Alert } from 'react-native';
-import * as Animatable from 'react-native-animatable';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, KeyboardAvoidingView, Platform, Alert, ActivityIndicator } from 'react-native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { RootStackParamList } from '../navigation/AppNavigator';
 import { supabase } from '../lib/supabase';
+import { RootStackParamList } from '../navigation/RootStack';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Signup'>;
 
 const SignupPage: React.FC<Props> = ({ navigation }) => {
   const [email, setEmail] = useState('');
-  const [name, setName] = useState('');
   const [password, setPassword] = useState('');
+  const [loading, setLoading] = useState(false);
 
-  const handleSignup = async() => {
-    const {error} = await supabase.auth.signUp({email, password});
-    if (error) {
-      Alert.alert('SignUP failed', error.message);
+  const handleSignup = async () => {
+    if (!email || !password) {
+      Alert.alert('Please enter both email and password.');
+      return;
     }
-    else{
-      navigation.navigate("Login");
+    if (password.length < 8) {
+      Alert.alert('Password must be at least 8 characters.');
+      return;
+    }
+    setLoading(true);
+    const { data: { session }, error } = await supabase.auth.signUp({ email, password });
+    setLoading(false);
+    if (error) {
+      Alert.alert('Signup failed', error.message);
+    } else {
+      if (!session) {
+        Alert.alert('Check your inbox for email verification!');
+        navigation.navigate('Login');
+      } else {
+        navigation.replace('Home');
+      }
     }
   };
 
   return (
     <KeyboardAvoidingView style={styles.container} behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
-      <Animatable.Text animation="fadeInDown" style={styles.logo}>AutoCurate</Animatable.Text>
-      <Animatable.Text animation="fadeInRight" delay={200} style={styles.title}>Create Account</Animatable.Text>
-      <Animatable.View animation="fadeInUp" delay={400} style={styles.form}>
-        <TextInput
-          style={styles.input}
-          placeholder="Name"
-          placeholderTextColor="#94a3b8"
-          autoCapitalize="words"
-          value={name}
-          onChangeText={setName}
-        />
-        <TextInput
-          style={styles.input}
-          placeholder="Email"
-          placeholderTextColor="#94a3b8"
-          keyboardType="email-address"
-          autoCapitalize="none"
-          value={email}
-          onChangeText={setEmail}
-        />
-        <TextInput
-          style={styles.input}
-          placeholder="Password"
-          placeholderTextColor="#94a3b8"
-          secureTextEntry
-          value={password}
-          onChangeText={setPassword}
-        />
-        <TouchableOpacity style={styles.primaryButton} onPress={() => navigation.navigate('Home')}>
-          <Animatable.Text animation="pulse" iterationCount="infinite" style={styles.primaryButtonText}>Sign Up</Animatable.Text>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => navigation.navigate('Login')}>
-          <Text style={styles.linkText}>Already have an account? Login</Text>
-        </TouchableOpacity>
-      </Animatable.View>
+      <Text style={styles.logo}>AutoCurate</Text>
+      <Text style={styles.title}>Create your account</Text>
+      <TextInput
+        style={styles.input}
+        placeholder="Email"
+        placeholderTextColor="#94a3b8"
+        keyboardType="email-address"
+        autoCapitalize="none"
+        value={email}
+        onChangeText={setEmail}
+        autoComplete="email"
+        textContentType="emailAddress"
+      />
+      <TextInput
+        style={styles.input}
+        placeholder="Password (min 8 chars)"
+        placeholderTextColor="#94a3b8"
+        secureTextEntry
+        value={password}
+        onChangeText={setPassword}
+        autoComplete="password"
+        textContentType="newPassword"
+      />
+      <TouchableOpacity style={styles.primaryButton} onPress={handleSignup} disabled={loading}>
+        {loading ? <ActivityIndicator color="#fff" /> : <Text style={styles.primaryButtonText}>Sign Up</Text>}
+      </TouchableOpacity>
+      <TouchableOpacity onPress={() => navigation.navigate('Login')}>
+        <Text style={styles.linkText}>Already have an account? Login</Text>
+      </TouchableOpacity>
     </KeyboardAvoidingView>
   );
 };
@@ -67,7 +74,6 @@ const styles = StyleSheet.create({
   container: { flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: '#f8fafc', padding: 24 },
   logo: { fontSize: 32, fontWeight: 'bold', color: '#2563EB', marginBottom: 12 },
   title: { fontSize: 22, fontWeight: '600', marginBottom: 24, color: '#1e293b' },
-  form: { width: '100%', alignItems: 'center' },
   input: {
     width: '100%',
     backgroundColor: '#fff',

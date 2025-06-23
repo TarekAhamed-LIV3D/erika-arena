@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
-import * as Animatable from 'react-native-animatable';
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Alert } from 'react-native';
 import { supabase } from '../lib/supabase';
 
 const upcomingPosts = [
@@ -19,50 +18,50 @@ const HomePage: React.FC = () => {
 
   useEffect(() => {
     const fetchUser = async () => {
-      const {data} = await supabase.auth.getUser();
-      setUser(data.user)
+      const { data, error } = await supabase.auth.getUser();
+      if (error || !data.user) {
+        Alert.alert('Session expired', 'Please log in again.');
+        // You can add navigation to Landing/Login here if needed
+      } else {
+        setUser(data.user);
+      }
     };
     fetchUser();
   }, []);
 
-
   return (
     <ScrollView style={styles.container} contentContainerStyle={{ paddingBottom: 24 }}>
-      <Animatable.Text animation="fadeInDown" style={styles.logo}>AutoCurate</Animatable.Text>
-      <Animatable.Text animation="fadeInUp" delay={200} style={styles.greeting}>Welcome back!</Animatable.Text>
+      <Text style={styles.logo}>AutoCurate</Text>
+      {user && <Text style={styles.greeting}>Welcome back, {user.email}!</Text>}
 
       {/* Stats */}
       <View style={styles.statsRow}>
-        {stats.map((stat, idx) => (
-          <Animatable.View animation="bounceIn" delay={300 + idx * 100} key={stat.label} style={styles.statCard}>
+        {stats.map((stat) => (
+          <View key={stat.label} style={styles.statCard}>
             <Text style={styles.statValue}>{stat.value}</Text>
             <Text style={styles.statLabel}>{stat.label}</Text>
-          </Animatable.View>
+          </View>
         ))}
       </View>
 
       {/* Upcoming Posts */}
-      <Animatable.Text animation="fadeInLeft" delay={400} style={styles.sectionTitle}>Upcoming Posts</Animatable.Text>
+      <Text style={styles.sectionTitle}>Upcoming Posts</Text>
       <View style={styles.upcomingList}>
-        {upcomingPosts.map((post, idx) => (
-          <Animatable.View animation="fadeInRight" delay={500 + idx * 100} key={post.id} style={styles.upcomingCard}>
+        {upcomingPosts.map((post) => (
+          <View key={post.id} style={styles.upcomingCard}>
             <Text style={styles.upcomingTitle}>{post.title}</Text>
             <Text style={styles.upcomingDate}>{post.date}</Text>
-          </Animatable.View>
+          </View>
         ))}
       </View>
 
       {/* Actions */}
-      <Animatable.View animation="pulse" iterationCount="infinite" style={styles.actionWrap}>
-        <TouchableOpacity style={styles.primaryButton}>
-          <Text style={styles.primaryButtonText}>Curate New Content</Text>
-        </TouchableOpacity>
-      </Animatable.View>
-      <Animatable.View animation="fadeInUp" delay={700}>
-        <TouchableOpacity style={styles.secondaryButton}>
-          <Text style={styles.secondaryButtonText}>View Analytics</Text>
-        </TouchableOpacity>
-      </Animatable.View>
+      <TouchableOpacity style={styles.primaryButton}>
+        <Text style={styles.primaryButtonText}>Curate New Content</Text>
+      </TouchableOpacity>
+      <TouchableOpacity style={styles.secondaryButton}>
+        <Text style={styles.secondaryButtonText}>View Analytics</Text>
+      </TouchableOpacity>
     </ScrollView>
   );
 };
@@ -94,14 +93,12 @@ const styles = StyleSheet.create({
   },
   upcomingTitle: { fontSize: 15, fontWeight: 'bold', color: '#2563EB' },
   upcomingDate: { fontSize: 13, color: '#64748b', marginTop: 2 },
-  actionWrap: { alignItems: 'center' },
   primaryButton: {
     backgroundColor: '#2563EB',
     paddingVertical: 14,
     borderRadius: 24,
     alignItems: 'center',
     marginBottom: 12,
-    width: 220,
   },
   primaryButtonText: { color: '#fff', fontWeight: 'bold', fontSize: 16 },
   secondaryButton: {
@@ -110,7 +107,6 @@ const styles = StyleSheet.create({
     paddingVertical: 14,
     borderRadius: 24,
     alignItems: 'center',
-    width: 220,
   },
   secondaryButtonText: { color: '#2563EB', fontWeight: 'bold', fontSize: 16 },
 });

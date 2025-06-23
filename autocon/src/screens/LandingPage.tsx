@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Text, Image, StyleSheet, TouchableOpacity, ScrollView, useWindowDimensions } from 'react-native';
 import * as Animatable from 'react-native-animatable';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { RootStackParamList } from '../navigation/AppNavigator';
+import { RootStackParamList } from '../navigation/RootStack';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Landing'>;
 
@@ -14,7 +14,7 @@ const LandingPage: React.FC<Props> = ({ navigation }) => {
     <ScrollView contentContainerStyle={styles.scrollContainer}>
       {/* Header */}
       <Animatable.View animation="fadeInDown" duration={800} style={styles.header}>
-        <Text style={styles.logo}>AutoCurate</Text>
+        <Text style={styles.logo}>AutoCon</Text>
         <TouchableOpacity
           style={styles.headerButton}
           onPress={() => navigation.navigate('Signup')}
@@ -107,7 +107,7 @@ const LandingPage: React.FC<Props> = ({ navigation }) => {
 
       {/* Footer */}
       <Animatable.View animation="fadeInUp" delay={600} style={styles.footer}>
-        <Text style={styles.footerText}>© 2025 AutoCurate. All rights reserved.</Text>
+        <Text style={styles.footerText}>© 2025 AutoCon. All rights reserved.</Text>
       </Animatable.View>
     </ScrollView>
   );
@@ -115,7 +115,7 @@ const LandingPage: React.FC<Props> = ({ navigation }) => {
 
 const styles = StyleSheet.create({
   scrollContainer: { backgroundColor: '#fff', paddingBottom: 20 },
-  header: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingHorizontal: 20, paddingTop: 40, paddingBottom: 16, backgroundColor: '#fff', borderBottomWidth: 1, borderBottomColor: '#E5E7EB' },
+  header: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingHorizontal: 20, paddingTop: 20, paddingBottom: 16, backgroundColor: '#fff', borderBottomWidth: 1, borderBottomColor: '#E5E7EB' },
   logo: { fontSize: 28, fontWeight: 'bold', color: '#2563EB' },
   headerButton: { backgroundColor: '#2563EB', paddingVertical: 10, paddingHorizontal: 22, borderRadius: 24 },
   headerButtonText: { color: '#fff', fontWeight: 'bold', fontSize: 16 },
