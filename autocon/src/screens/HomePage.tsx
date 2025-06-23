@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
 import * as Animatable from 'react-native-animatable';
+import { supabase } from '../lib/supabase';
 
 const upcomingPosts = [
   { id: 1, title: "How AI Changes Content Creation", date: "2025-06-25" },
@@ -14,6 +15,17 @@ const stats = [
 ];
 
 const HomePage: React.FC = () => {
+  const [user, setUser] = useState<any>(null);
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      const {data} = await supabase.auth.getUser();
+      setUser(data.user)
+    };
+    fetchUser();
+  }, []);
+
+
   return (
     <ScrollView style={styles.container} contentContainerStyle={{ paddingBottom: 24 }}>
       <Animatable.Text animation="fadeInDown" style={styles.logo}>AutoCurate</Animatable.Text>

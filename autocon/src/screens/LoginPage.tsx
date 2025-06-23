@@ -1,14 +1,27 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, KeyboardAvoidingView, Platform } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, KeyboardAvoidingView, Platform, Alert } from 'react-native';
 import * as Animatable from 'react-native-animatable';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../navigation/AppNavigator';
+import { supabase } from '../lib/supabase';
+
+
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Login'>;
 
 const LoginPage: React.FC<Props> = ({ navigation }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+
+  const handleLogin = async () => {
+    const {error} = await supabase.auth.signInWithPassword({email, password});
+    if (error) {
+      Alert.alert('Login Failed', error.message);
+    } 
+    else{
+      navigation.navigate('Home');
+    }
+  };
 
   return (
     <KeyboardAvoidingView style={styles.container} behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
